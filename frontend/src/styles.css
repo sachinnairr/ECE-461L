@@ -1,0 +1,37 @@
+.title-box{
+    border: 1px solid #2F5496;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    background-color: #2F5496;
+    text-align: center;
+    font-size: 60px;
+}
+.nav-box{
+    border: 2px solid black;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    background-color: #8DA9DB;
+    text-align: center;
+    font-size: 20px;
+}
+.nav-section{
+    float: left;
+    border: 2px solid black;
+    padding: 8px;
+    margin-top: -22px;
+    margin-left: -22px;
+    margin-right: 22px;
+    width: 20%;
+}
+.nav-clicked{
+    float: left;
+    border: 2px solid black;
+    padding: 8px;
+    margin-top: -22px;
+    margin-left: -22px;
+    margin-right: 22px;
+    width: 20%;
+    background-color: #3B6ABE;
+}
