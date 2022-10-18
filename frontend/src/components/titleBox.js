@@ -1,16 +1,10 @@
 import React from 'react';
-import Box from '@mui/material/Box'; 
+import "../styles.css";
 
-export default function TitleBox() {
+export default function TitleBox(props) {
     return(
-        <div>
-        <Box
-        sx={{width: 300, height: 300,
-          backgroundColor: 'primary.dark',
-        }}
-       
-      />
-      <h1>title</h1>
+        <div className="title-box">
+      {props.title}
       </div>
     );
 }
