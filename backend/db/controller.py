@@ -16,7 +16,6 @@ collection2 = db["Projects"]
 
 @app.route("/users", methods = ["POST"])
 def createUser():
-    
     json = request.get_json()
     ditem = {
         "username" : json["username"],
