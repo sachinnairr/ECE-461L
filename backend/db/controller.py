@@ -1,17 +1,22 @@
 from http import client
 from flask import Flask,  jsonify, request
 import pymongo
+import dotenv, os
+from dotenv import load_dotenv
 
+#initialize
+load_dotenv()
 app= Flask(__name__)
-client = pymongo.MongoClient("mongodb+srv://caelanliu:461mongo@cluster0.txm6jf5.mongodb.net/?retryWrites=true&w=majority")
+client = pymongo.MongoClient(os.getenv("MONGO_CLIENT_URL"))
 db = client["EE461L"]
+
 #crate collection
 collection = db["User"]
 collection2 = db["Projects"]
 
 @app.route("/users", methods = ["POST"])
 def createUser():
-
+    
     json = request.get_json()
     ditem = {
         "username" : json["username"],
