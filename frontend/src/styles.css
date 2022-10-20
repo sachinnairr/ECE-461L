@@ -35,3 +35,16 @@
     width: 20%;
     background-color: #3B6ABE;
 }
+.field{
+    width: 100%;
+}
+.field-label{
+    float: left;
+}
+.field-set{
+    float: left;
+    width: 50%;
+}
+.field-set-title{
+    text-align: center;
+}
