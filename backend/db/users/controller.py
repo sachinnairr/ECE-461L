@@ -69,7 +69,7 @@ def createHw():
     ditem = {
         "Name": json["Name"],
         "Capacity": json["Capacity"],
-        "Availibility": json["Availibility"]
+        "Availability": json["Availability"]
     }
     hw.insert_one(ditem)
 
