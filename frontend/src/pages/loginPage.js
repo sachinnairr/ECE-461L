@@ -13,8 +13,23 @@ export default function LoginPage() {
         //TODO
     }
     function createAccount(username, password, id){
-        //TODO
+        const data = { username: {
+            first: "first",
+            last: "last"
+        }, 
+                       password: password,
+                       userid: id };
+        fetch('http://localhost:3100/users', {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
     }
+
     return(
         <div>
             <div className="field-set">
