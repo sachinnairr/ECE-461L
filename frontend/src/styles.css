@@ -29,17 +29,32 @@
     float: left;
     border: 2px solid black;
     padding: 8px;
-    margin-top: -22px;
+    margin-top: -21px;
     margin-left: -22px;
     margin-right: 22px;
     width: 20%;
     background-color: #3B6ABE;
 }
 .field{
-    width: 100%;
+    width: 80%;
+    border: 2px solid black;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
 }
 .field-label{
     float: left;
+    font-size: 48.75px;
+    width: 70%;
+    background-color: #3B6ABE;
+}
+.field-input{
+    background-color: #3B6ABE;
+    color: white;
+}
+.field-set-title{
+    font-size: 40px;
 }
 .field-set{
     float: left;
@@ -47,4 +62,7 @@
 }
 .field-set-title{
     text-align: center;
+}
+.input{
+    background-color: white;
 }
