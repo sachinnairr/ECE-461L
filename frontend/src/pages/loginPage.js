@@ -12,6 +12,7 @@ export default function LoginPage() {
     function login(username, password, id){
         //TODO
     }
+    
     function createAccount(username, password, id){
         const data = { username: {
             first: "first",
@@ -19,7 +20,8 @@ export default function LoginPage() {
         }, 
                        password: password,
                        userid: id };
-        fetch('http://localhost:3100/users', {
+        
+        fetch('http://127.0.0.1:80/users', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
