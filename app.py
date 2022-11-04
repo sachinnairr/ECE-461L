@@ -26,7 +26,6 @@ def not_found(e):
 @app.route("/users", methods=["POST", "GET"])
 def createUser():
     if request.method == "POST":
-        print(os.getenv("MONGO_CLIENT_URL"))
         json = request.get_json(force = True)
         message = ""
         json = request.get_json()
@@ -34,7 +33,6 @@ def createUser():
         user_found = users.find_one({"userid": user})
         if user_found:
             message = 'Userid already exists'
-            print("User found")
             return message
 
         ditem = {
@@ -47,16 +45,14 @@ def createUser():
         }
         users.insert_one(ditem)
 
-        print("Data inserted: " + str(ditem))
-
-        return ditem["username"]
+        return "User " + json["userid"] + " Created"
 
 @app.route("/users/login", methods=["POST"])
 def login():
-    json = request.get_json()
+    json = request.get_json(force = True)
+    print(json)
     user = json['userid']
     password = json['password']
-    print(os.getenv("MONGO_CLIENT_URL"))
     user_found = users.find_one({"userid": user})
     if user_found is not None:
         #user exists
@@ -76,7 +72,7 @@ def login():
 #projects
 @app.route("/projects", methods=["POST"])
 def createProject():
-    json = request.get_json()
+    json = request.get_json(force = True)
     authusers = [i for i in json["AuthorizedUsers"]]
     ditem = {
         "Name": json["Name"],
@@ -85,12 +81,25 @@ def createProject():
         "AuthorizedUsers": authusers
     }
     projects.insert_one(ditem)
+    return "Project " + json["Name"] + " Added"
+
+@app.route("/projects/get", methods=["POST"])
+def getProject():
+    json = request.get_json(force = True)
+    project_found = projects.find_one({"ID": json["projectId"]})
+    if project_found:
+        if(json["userId"] in project_found["AuthorizedUsers"]):
+            return "Project Accessed"
+        else:
+            return "Access Denied"
+    else:
+        return "Project Does Not Exist"
 
 
 #hwsets
 @app.route("/hwsets", methods=["POST"])
 def createHw():
-    json = request.get_json()
+    json = request.get_json(force = True)
 
     ditem = {
         "Name": json["Name"],
