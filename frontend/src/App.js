@@ -12,6 +12,7 @@ function App() {
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/projects" element={<ProjectsPage />}/>
         <Route path="/hardware" element={<HardwarePage />}/>
+        <Route path="/manageProjects" element={<manageProject/>}/>
       </Routes>
       </BrowserRouter>
       <Dashboard/>
