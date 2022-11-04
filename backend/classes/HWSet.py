@@ -1,8 +1,38 @@
-# The User class holds general data about users
+class HWSet():
 
-class HWSet:
-    # The __init__ method accepts arguments for the year, rating. It initializes the private data attributes with these
-    # values to any values you like.
-
-    def __init__(self):
+    def __init__(self, qty = 0):
         self.__projectID = 0
+        self._capacity = qty
+        self._availability = self._capacity
+
+    def get_availability(self):
+        return self._availability
+
+    def get_capacity(self):
+        return self._capacity
+
+
+    def get_checkedout_qty(self):
+        return self._capacity - self._availability
+  
+    def check_out(self, qty = 0):
+       
+        if(self._availability - qty >= 0):
+            self._availability -= qty
+            return 0
+        else:
+            self._availability = 0
+        
+            return -1
+
+    def check_in(self, qty = 0):
+        if(self._availability + qty <= self._capacity):
+            self._availability += qty
+            return 0
+        else:
+            self._availability = self._capacity
+            return -1
+
+    
+
+    
