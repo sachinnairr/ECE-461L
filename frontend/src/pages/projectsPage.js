@@ -6,11 +6,49 @@ export default function ProjectsPage() {
     const [newName, setNewName] = React.useState("");
     const [newDescription, setNewDescription] = React.useState("");
     const [newId, setNewId] = React.useState("");
+    const [authUsers, setAuthUsers] = React.useState("");
+    const [response, setResponse] = React.useState("No Response Yet");
+
     function existingProject(id){
-        //TODO
+        const data = { projectId: id,
+            userId: "chris"
+         };
+        
+        fetch('http://127.0.0.1:80/projects/get', {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then((response) => response.text())
+        .then((text) => {
+        console.log(text)
+        setResponse(text)
+      });
     }
-    function createProject(name, description, id){
-        //TODO
+    function createProject(name, description, id, authusers){
+        const authorized = authusers.split(" ");
+        const data = { ID: id,
+            Name: name,
+            Description : description,
+            AuthorizedUsers : authorized
+        };
+
+        fetch('http://127.0.0.1:80/projects', {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then((response) => response.text())
+        .then((text) => {
+        console.log(text)
+        setResponse(text)
+      });
     }
     return(
         <div>
@@ -37,7 +75,18 @@ export default function ProjectsPage() {
                     <div className='field-label'>{"Project ID"}</div>
                     <TextField id="outlined-basic" label="" variant="outlined" value={newId} onChange={(event) => setNewId(event.target.value)}/>
                 </div>
-                <div><Button variant="contained" onClick={(event) => createProject(newName, newDescription, newId)}>Create Project</Button></div>
+                <div className='field'>
+                    <div className='field-label'>{"Authorized Users (Separate with a space)"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={authUsers} onChange={(event) => setAuthUsers(event.target.value)}/>
+                </div>
+                <div><Button variant="contained" onClick={(event) => createProject(newName, newDescription, newId, authUsers)}>Create Project</Button></div>
+            </div>
+
+            <div className="field-set">
+                <h2 className="field-set-title">Server Response</h2>
+                <div className='field'>
+                    <div className='field-label'>{response}</div>
+                </div>
             </div>
         </div>
     );
