@@ -8,7 +8,6 @@ import certifi
 app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
 load_dotenv()
 client = pymongo.MongoClient(os.getenv("MONGO_CLIENT_URL"), tlsCAFile=certifi.where())
-#client = pymongo.MongoClient("mongodb+srv://<username>:<password>@cluster0.txm6jf5.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1')) tlsCAFile=certifi.where()
 db = client["EE461L"]
 
 #create collection
