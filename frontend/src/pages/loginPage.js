@@ -1,22 +1,21 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 export default function LoginPage() {
-    const [existingFirstname, setExistingFirstname] = React.useState("");
-    const [existingLastname, setExistingLastname] = React.useState("");
     const [existingPassword, setExistingPassword] = React.useState("");
     const [existingId, setExistingId] = React.useState("");
     const [newFirstname, setNewFirstname] = React.useState("");
     const [newLastname, setNewLastname] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
+    const [rePassword, setRePassword] = React.useState("")
     const [newId, setNewId] = React.useState("");
-    const [message, setMessage] = React.useState("Message Goes Here")
+    const [message, setMessage] = React.useState("Message Goes Here");
+    const [toggle1, setToggle1] = React.useState(false);
+    const [toggle2, setToggle2] = React.useState(false);
 
-    function login(firstname, lastname, password, id){
-        const data = { username: {
-            "first": firstname,
-            "last": lastname
-        }, 
+    function login(password, id){
+        const data = {
                        password: password,
                        userid: id };
         
@@ -35,8 +34,11 @@ export default function LoginPage() {
       });
     }
     
-    function createAccount(firstname, lastname, password, id){
-        const data = { username: {
+    function createAccount(firstname, lastname, repassword, password, id){
+        if(repassword !== password){
+            setMessage("Passwords do not match");
+        }else{
+             const data = { username: {
             "first": firstname,
             "last": lastname
         }, 
@@ -56,29 +58,25 @@ export default function LoginPage() {
         console.log(text)
         setMessage(text)
     });
+        }
+       
     }
-
     return(
         <div>
             <div className="field-set">
             <h2 className="field-set-title">Existing User</h2>
                 <div className='field'>
-                    <div className='field-label'>Enter First Name</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={existingFirstname} onChange={(event) => setExistingFirstname(event.target.value)}/>
-                </div>
-                <div className='field'>
-                    <div className='field-label'>{"Enter Last Name"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={existingLastname} onChange={(event) => setExistingLastname(event.target.value)}/>
-                </div>
-                <div className='field'>
-                    <div className='field-label'>{"Enter Password"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={existingPassword} onChange={(event) => setExistingPassword(event.target.value)}/>
-                </div>
-                <div className='field'>
                     <div className='field-label'>{"User ID"}</div>
                      <TextField id="outlined-basic" label="" variant="outlined" value={existingId} onChange={(event) => setExistingId(event.target.value)}/>
                 </div>
-                <div><Button variant="contained" onClick={(event) => login(existingFirstname, existingLastname, existingPassword, existingId)}>Login</Button></div>
+                <div className='field'>
+                    <div className='field-label'>{"Enter Password"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" type={toggle1 ? "text" : "password"} value={existingPassword} onChange={(event) => setExistingPassword(event.target.value)}/>
+                </div>
+                <Stack spacing={2} direction="row">
+                <div><Button variant="contained" onClick={(event) => setToggle1(!toggle1) }>{toggle1 ? "Hide Password" : "Show Password"}</Button></div>
+                <div><Button variant="contained" onClick={(event) => login(existingPassword, existingId)}>Login</Button></div>
+                </Stack>
             </div>
            <div className="field-set">
             <h2 className="field-set-title">Create Account</h2>
@@ -89,20 +87,23 @@ export default function LoginPage() {
                 <div className='field'>
                     <div className='field-label'>{"Enter Last Name"}</div>
                     <TextField id="outlined-basic" label="" variant="outlined" value={newLastname} onChange={(event) => setNewLastname(event.target.value)}/>
-                </div>
-                <div className='field'>
-                    <div className='field-label'>{"Enter Password"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={newPassword} onChange={(event) => setNewPassword(event.target.value)}/>
-                </div>
-                <div className='field'>
-                    <div className='field-label'>{"Re-Enter Password"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined"/>
-                </div>
+                </div> 
                 <div className='field'>
                     <div className='field-label'>{"User ID"}</div>
                      <TextField id="outlined-basic" label="" variant="outlined" value={newId} onChange={(event) => setNewId(event.target.value)}/>
                 </div>
-                <div><Button variant="contained" onClick={(event) => createAccount(newFirstname, newLastname, newPassword, newId)}>Create Account</Button></div>
+                <div className='field'>
+                    <div className='field-label'>{"Enter Password"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" type={toggle2 ? "text" : "password"} value={newPassword} onChange={(event) => setNewPassword(event.target.value)}/>
+                </div>
+                <div className='field'>
+                    <div className='field-label'>{"Re-Enter Password"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" type={toggle2 ? "text" : "password"} value={rePassword} onChange={(event) => setRePassword(event.target.value)}/>
+                </div>
+                <Stack spacing={2} direction="row">
+                     <div><Button variant="contained" onClick={(event) => setToggle2(!toggle2) }>{toggle2 ? "Hide Password" : "Show Password"}</Button></div>
+                    <div><Button variant="contained" onClick={(event) => createAccount(newFirstname, newLastname, newPassword, rePassword, newId)}>Create Account</Button></div>
+                </Stack>
             </div>
             <div className="field-set">
                 <h2 className="field-set-title">Server Response</h2>
