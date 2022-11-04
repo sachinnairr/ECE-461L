@@ -1,0 +1,215 @@
+.App {
+	text-align: left;
+}
+
+.app_header {
+	display: flex;
+	flex-direction: column;
+	background-color: #282c34;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: left;
+	color: white;
+	overflow: hidden;
+}
+
+
+.projectTitle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 40px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	text-align: center;
+}
+
+.projectWrap {
+	display: inline-block;
+	background: #ffffff;
+	height: auto;
+	width: 1800px;
+	margin: 50px 50px 50px 50px;
+	text-align: center;
+	border-style: solid;
+	border-color: #303436;
+	border-width: 5px;
+	border-radius: 10px;
+}
+
+.project {
+
+	display: inline-block;
+	background-color: #ffffff;
+	min-height: 100px;
+	height: auto;
+	width: 1700px;
+	margin-top: 0px;
+	margin-left: 0px;
+	border-style: solid;
+	border-color: black;
+	border-width: 5px;
+	border-radius: 10px;
+}
+
+.emptySpace {
+	display: inline-block;
+	height: 10px;
+	width: 2030px;
+	margin-left: 0px;
+
+}
+
+.column {
+	width: 15%;
+	margin-top: 10px;
+	float: left;
+	text-align: center;
+}
+
+.newProjectColumn {
+	width: 33.33%;
+	margin-top: 10px;
+	float: left;
+	text-align: center;
+}
+
+.projectName {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 30px;
+	margin-top: 30px;
+}
+
+.user {
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: oblique;
+	font-size: 30px;
+	margin-top: 30px;
+}
+
+.hwDescription {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.hwSelect {
+	font-size: 20px;
+	height: 30px;
+	width: 120px;
+	margin-top: -10px;
+	vertical-align: top;
+}
+
+.hwInput {
+	font-size: 20px;
+	height: 15px;
+	width: 100px;
+	padding: 5px 20px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	vertical-align: top;
+	text-align: center;
+	border-color: black;
+	border-style: solid;
+	border-width: 5px;
+	border-radius: 5px;
+}
+
+.newProjectInput {
+	font-size: 25px;
+	height: 30px;
+	width: 250px;
+	padding: 5px 20px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	vertical-align: middle;
+	text-align: center;
+	border-color:black;
+	border-style: solid;
+	border-width: 5px;
+	border-radius: 5px;
+}
+
+.checkBtn {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	height: 30px;
+	width: 150px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	vertical-align: top;
+	border-color: #000000;
+	border-style: solid;
+	border-radius: 5px;
+}
+
+.checkBtn:hover {
+	color: white;
+	background-color: #000000;
+	border: #404040;
+	border-style: solid;
+	border-width: 5px;
+}
+
+.checkBtn:active {
+	border: black;
+	border-style: solid;
+	border-width: 5px;
+}
+
+.joinBtn {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	height: 30px;
+	width: 150px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	vertical-align: middle;
+	border-color: black;
+	border-style: solid;
+	border-radius: 5px;
+}
+
+.joinBtn:hover {
+	color: black;
+	background-color: #000000;
+	border: #404040;
+	border-style: solid;
+	border-width: 5px;
+}
+
+.joinBtn:active {
+	border: black;
+	border-style: solid;
+	border-width: 5px;
+}
+
+.addProjectBtn {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	height: 45px;
+	width: 280px;
+	margin-top: 18px;
+	margin-bottom: 25px;
+	vertical-align: middle;
+	border-color: black;
+	border-style: solid;
+	border-radius: 5px;
+}
+
+.addProjectBtn:hover {
+	color: white;
+	background-color: #000000;
+	border: white;
+	border-style: solid;
+	border-width: 5px;
+}
+
+.addProjectBtn:active {
+	border: black;
+	border-style: solid;
+	border-width: 5px;
+}
