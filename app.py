@@ -1,15 +1,31 @@
-import os
+import dotenv, os
+import pymongo
+from dotenv import load_dotenv
+from flask import Flask,  jsonify, request, render_template
 from backend.classes.HWSet import HWSet
-from flask import Flask, send_from_directory, jsonify, request
+import certifi
 
-app = Flask(__name__, static_url_path='', static_folder='ui/build/')
+#initialize
+app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
+load_dotenv()
+client = pymongo.MongoClient(os.getenv("MONGO_CLIENT_URL"), tlsCAFile=certifi.where())
+db = client["EE461L"]
+
+#create collection
+users = db["User"]
+projects = db["Project"]
+hwsets = db["HWSet"]
+
+#create practice HWSets
+hw1 = HWSet(100)
+hw2 = HWSet(50)
 
 @app.route('/')
 def index():
-    return send_from_directory('ui/build/', 'index.html')
-
-hw1 = HWSet(100)
-hw2 = HWSet(50)
+    return app.send_static_file('index.html')
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 @app.route("/test", methods = ['POST', 'GET'])
 def hw_pick():
@@ -68,32 +84,6 @@ def leaveProject():
         left = "[insert name in field above]"
 
     return {}.format(left)
-
-if __name__ == '__main__':
-=======
-import dotenv, os
-import pymongo
-from dotenv import load_dotenv
-from flask import Flask,  jsonify, request, render_template
-import certifi
-
-#initialize
-app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
-load_dotenv()
-client = pymongo.MongoClient(os.getenv("MONGO_CLIENT_URL"), tlsCAFile=certifi.where())
-db = client["EE461L"]
-
-#create collection
-users = db["User"]
-projects = db["Project"]
-hwsets = db["HWSet"]
-
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
 
 #users
 @app.route("/users", methods=["POST", "GET"])
