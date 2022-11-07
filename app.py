@@ -1,5 +1,3 @@
-#if __name__ == '__main__':
-#=======
 import dotenv, os
 import pymongo
 from dotenv import load_dotenv
