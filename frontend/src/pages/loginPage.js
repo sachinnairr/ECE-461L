@@ -18,7 +18,7 @@ export default function LoginPage(url) {
                        password: password,
                        userid: id };
         
-        fetch(url + 'login', {
+        fetch('http://127.0.0.1:80/users/login', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
