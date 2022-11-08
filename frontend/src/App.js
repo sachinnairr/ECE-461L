@@ -4,14 +4,17 @@ import Dashboard from './pages/Dashboard';
 import LoginPage from './pages/loginPage';
 import ProjectsPage from './pages/projectsPage';
 import HardwarePage from './pages/hardwarePage';
+
+const URL = "http://127.0.0.1:80/"
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Routes> 
-        <Route path="/login" element={<LoginPage />}/>
-        <Route path="/projects" element={<ProjectsPage />}/>
-        <Route path="/hardware" element={<HardwarePage />}/>
+        <Route path="/login" element={<LoginPage url={URL}/>}/>
+        <Route path="/projects" element={<ProjectsPage url={URL}/>}/>
+        <Route path="/hardware" element={<HardwarePage url={URL}/>}/>
       </Routes>
       </BrowserRouter>
       <Dashboard/>

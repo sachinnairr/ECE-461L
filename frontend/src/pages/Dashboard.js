@@ -39,6 +39,8 @@ if(state==="Manage Hardware"){
             <TitleBox title={state}/>
             {buttons}
             {page}
+            <p>Logged in as: Chris</p>
+            <p>Accessing project: ProjectName</p>
         </div>
     );
 }
