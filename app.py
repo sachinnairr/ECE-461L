@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask,  jsonify, request, render_template
 from backend.classes.HWSet import HWSet
 import certifi
+import encryptor
 
 #initialize
 app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
@@ -97,10 +98,11 @@ def createUser():
         if user_found:
             message = 'Userid already exists'
             return message
+        encrypted_pass = encryptor.encrypt(json["password"])
 
         ditem = {
             "userid": json["userid"],
-            "password": json["password"],
+            "password": encrypted_pass,
             "username": json["username"]
         }
         users.insert_one(ditem)
@@ -113,10 +115,11 @@ def login():
     print(json)
     user = json['userid']
     password = json['password']
+    encrypted_pass = encryptor.encrypt(password)
     user_found = users.find_one({"userid": user})
     if user_found is not None:
         #user exists
-        if password == user_found["password"]:
+        if encrypted_pass == user_found["password"]:
             #correct password
             message = 'Correct password'
             return message
