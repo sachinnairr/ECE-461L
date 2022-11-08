@@ -2,11 +2,10 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-export default function LoginPage() {
+export default function LoginPage(url) {
     const [existingPassword, setExistingPassword] = React.useState("");
     const [existingId, setExistingId] = React.useState("");
-    const [newFirstname, setNewFirstname] = React.useState("");
-    const [newLastname, setNewLastname] = React.useState("");
+    const [username, setUsername] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
     const [rePassword, setRePassword] = React.useState("")
     const [newId, setNewId] = React.useState("");
@@ -19,7 +18,7 @@ export default function LoginPage() {
                        password: password,
                        userid: id };
         
-        fetch('http://127.0.0.1:80/users/login', {
+        fetch(url + 'login', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -34,14 +33,11 @@ export default function LoginPage() {
       });
     }
     
-    function createAccount(firstname, lastname, repassword, password, id){
+    function createAccount(username, repassword, password, id){
         if(repassword !== password){
             setMessage("Passwords do not match");
         }else{
-             const data = { username: {
-            "first": firstname,
-            "last": lastname
-        }, 
+             const data = { username: username,
                        password: password,
                        userid: id };
         
@@ -80,13 +76,9 @@ export default function LoginPage() {
             </div>
            <div className="field-set">
             <h2 className="field-set-title">Create Account</h2>
-            <div className='field'>
-                <div className='field-label'>{"Enter First Name"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={newFirstname} onChange={(event) => setNewFirstname(event.target.value)}/>
-            </div>
                 <div className='field'>
-                    <div className='field-label'>{"Enter Last Name"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={newLastname} onChange={(event) => setNewLastname(event.target.value)}/>
+                    <div className='field-label'>{"Enter Username"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={username} onChange={(event) => setUsername(event.target.value)}/>
                 </div> 
                 <div className='field'>
                     <div className='field-label'>{"User ID"}</div>
@@ -102,7 +94,7 @@ export default function LoginPage() {
                 </div>
                 <Stack spacing={2} direction="row">
                      <div><Button variant="contained" onClick={(event) => setToggle2(!toggle2) }>{toggle2 ? "Hide Password" : "Show Password"}</Button></div>
-                    <div><Button variant="contained" onClick={(event) => createAccount(newFirstname, newLastname, newPassword, rePassword, newId)}>Create Account</Button></div>
+                    <div><Button variant="contained" onClick={(event) => createAccount(username, newPassword, rePassword, newId)}>Create Account</Button></div>
                 </Stack>
             </div>
             <div className="field-set">

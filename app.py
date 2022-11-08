@@ -101,10 +101,7 @@ def createUser():
         ditem = {
             "userid": json["userid"],
             "password": json["password"],
-            "username": {
-                "first": json["username"]["first"],
-                "last": json["username"]["last"]
-            }
+            "username": json["username"]
         }
         users.insert_one(ditem)
 
