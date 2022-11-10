@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-export default function LoginPage(url) {
+export default function LoginPage(props) {
     const [existingPassword, setExistingPassword] = React.useState("");
     const [existingId, setExistingId] = React.useState("");
     const [username, setUsername] = React.useState("");
@@ -28,11 +28,11 @@ export default function LoginPage(url) {
             }
         }).then((response) => response.text())
         .then((text) => {
-        console.log(text)
+        console.log(text)   
+        if(text === "Correct Password")props.handler(text) 
         setMessage(text)
-      });
+      }); 
     }
-    
     function createAccount(username, repassword, password, id){
         if(repassword !== password){
             setMessage("Passwords do not match");

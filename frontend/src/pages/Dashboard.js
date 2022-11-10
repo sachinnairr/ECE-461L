@@ -10,13 +10,23 @@ export default function Dashboard() {
     console.log(state);
     let buttons;
     let page;
+const [username, setUsername] = React.useState("Not Logged In");
+const [project, setProject] = React.useState("No Project");
+
+
+const loginHandler = (user) => {
+    setUsername(user);
+}
+const projectHandler = (project) => {
+    setProject(project);
+}
 if(state==="Login"){
      buttons = <div className='nav-box'>
     <div className='nav-clicked' onClick={(e) => setState("Login")}>Login</div>
     <div className='nav-section' onClick={(e) => setState("Manage Projects")}>Manage Projects</div>
     <div className='nav-section' onClick={(e) => setState("Manage Hardware")}>Manage Hardware</div>
     </div>
-    page = <LoginPage/>
+    page = <LoginPage handler={loginHandler}/>
 }
 if(state==="Manage Projects"){
      buttons = <div className='nav-box'>
@@ -24,7 +34,7 @@ if(state==="Manage Projects"){
     <div className='nav-clicked' onClick={(e) => setState("Manage Projects")}>Manage Projects</div>
     <div className='nav-section' onClick={(e) => setState("Manage Hardware")}>Manage Hardware</div>
     </div>
-    page = <ProjectsPage/>
+    page = <ProjectsPage handler={projectHandler} userId={username}/>
 }
 if(state==="Manage Hardware"){
      buttons = <div className='nav-box'>
@@ -34,13 +44,31 @@ if(state==="Manage Hardware"){
     </div>
     page = <HardwarePage/>
 }
-    return(
+
+    if(username === "Not Logged In"){
+        return(
+            <div>
+                <TitleBox title="Login"/>
+                <div className='nav-box'>
+                    <div className='nav-clicked' onClick={(e) => setState("Login")}>Login</div>
+                    <div className='nav-section' onClick={(e) => setState("Manage Projects")}>Manage Projects</div>
+                    <div className='nav-section' onClick={(e) => setState("Manage Hardware")}>Manage Hardware</div>
+                </div>
+                <LoginPage handler={loginHandler}/>
+                <p>Logged in as: {username}</p>
+                <p>Accessing project: {project}</p>
+            </div>
+        );
+    }else{
+        return(
         <div>
             <TitleBox title={state}/>
             {buttons}
             {page}
-            <p>Logged in as: Chris</p>
-            <p>Accessing project: ProjectName</p>
+            <p>Logged in as: {username}</p>
+            <p>Accessing project: {project}</p>
         </div>
     );
+    }
+    
 }
