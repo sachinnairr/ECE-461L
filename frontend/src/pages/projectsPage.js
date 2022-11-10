@@ -24,7 +24,7 @@ export default function ProjectsPage(props) {
             }
         }).then((response) => response.text())
         .then((text) => {
-        if(text === "Project Accessed")props.handler(id)
+        if(text === "Project Accessed") props.handler(id, name, description, authorized);
         console.log(text)
         setResponse(text)
       });

@@ -11,14 +11,18 @@ export default function Dashboard() {
     let buttons;
     let page;
 const [username, setUsername] = React.useState("Not Logged In");
-const [project, setProject] = React.useState("No Project");
-
-
+const [projectId, setProjectId] = React.useState("No Project ID");
+const [projectName, setProjectName] = React.useState("No Project Name");
+const [projectDescription, setProjectDescription] = React.useState("No Project Description");
+const [projectAuthorized, setProjectAuthorized] = React.useState("No Authorized Users")
 const loginHandler = (user) => {
     setUsername(user);
 }
-const projectHandler = (project) => {
-    setProject(project);
+const projectHandler = (id, name, description, authorized) => {
+    setProjectId(id);
+    setProjectName(name);
+    setProjectDescription(description);
+    setProjectAuthorized(authorized);
 }
 if(state==="Login"){
      buttons = <div className='nav-box'>
@@ -55,8 +59,7 @@ if(state==="Manage Hardware"){
                     <div className='nav-section' onClick={(e) => setState("Manage Hardware")}>Manage Hardware</div>
                 </div>
                 <LoginPage handler={loginHandler}/>
-                <p>Logged in as: {username}</p>
-                <p>Accessing project: {project}</p>
+                <p>User ID: {username}</p>
             </div>
         );
     }else{
@@ -65,8 +68,11 @@ if(state==="Manage Hardware"){
             <TitleBox title={state}/>
             {buttons}
             {page}
-            <p>Logged in as: {username}</p>
-            <p>Accessing project: {project}</p>
+            <p>User ID: {username}</p>
+            <p>Project ID: {projectId}</p>
+            <p>Project Name: {projectName}</p>
+            <p>Project Description: {projectDescription}</p>
+            <p>Authorized Users: {projectAuthorized}</p>
         </div>
     );
     }
