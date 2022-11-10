@@ -29,7 +29,9 @@ export default function LoginPage(props) {
         }).then((response) => response.text())
         .then((text) => {
         console.log(text)   
-        if(text === "Correct Password")props.handler(text) 
+        if(text === "Correct password"){
+            props.handler(id) 
+        }
         setMessage(text)
       }); 
     }
