@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-export default function ProjectsPage() {
+export default function ProjectsPage(props) {
     const [existingId, setExistingId] = React.useState("");
     const [newName, setNewName] = React.useState("");
     const [newDescription, setNewDescription] = React.useState("");
@@ -11,7 +11,7 @@ export default function ProjectsPage() {
 
     function existingProject(id){
         const data = { projectId: id,
-            userId: "chris"
+            userId: props.userId
          };
         
         fetch('http://127.0.0.1:80/projects/get', {
@@ -24,6 +24,7 @@ export default function ProjectsPage() {
             }
         }).then((response) => response.text())
         .then((text) => {
+        if(text === "Project Accessed")props.handler(id)
         console.log(text)
         setResponse(text)
       });
