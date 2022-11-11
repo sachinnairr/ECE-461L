@@ -185,6 +185,33 @@ def createHw():
     }
     hwsets.insert_one(ditem)
 
+@app.route("/hwsets/getAvailability", methods=["POST"])
+def getHwAvailability():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
+    if hw_found is not None:
+        #hw name exists, then return availability
+        availability = hw_found["Availability"]
+        return availability
+    else:
+        #if hw name doesn't exist, return error -1
+        availability = -1
+        return availability
+
+@app.route("/hwsets/getCapacity", methods=["POST"])
+def getHwCapacity():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
+    if hw_found is not None:
+        #hw name exists, then return capacity
+        capacity = hw_found["Capacity"]
+        return capacity
+    else:
+        #if hw name doesn't exist, return error -1
+        capacity = -1
+        return capacity
 
 @app.route("/check_in", methods=["POST", "GET"])
 def checkIn_hardware():
