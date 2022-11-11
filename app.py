@@ -158,6 +158,19 @@ def getProject():
     else:
         return "Project Does Not Exist"
 
+@app.route("/projects/getID", methods=["POST"])
+def getProjectID():
+    json = request.get_json(force = True)
+    project_found = projects.find_one({"ID": json["projectId"]})
+    data = {
+        "Name": project_found["Name"],
+        "ID": project_found["ID"],
+        "Description": project_found["Description"],
+        "AuthorizedUsers": project_found["AuthorizedUsers"],
+    }
+
+    return data
+    
 
 #hwsets
 @app.route("/hwsets", methods=["POST"])
