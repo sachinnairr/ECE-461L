@@ -13,7 +13,7 @@ export default function ProjectsPage(props) {
         const data = { projectId: id,
             userId: props.userId
          };
-        
+        getProject(id)
         fetch('http://127.0.0.1:80/projects/get', {
             method: 'POST', 
             body: JSON.stringify(data),
@@ -29,6 +29,25 @@ export default function ProjectsPage(props) {
         setResponse(text)
       });
     }
+
+    function getProject(id){
+        const data = { projectId: id
+         };
+        
+        fetch('http://127.0.0.1:80/projects/getID', {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then((response) => response.json())
+        .then((json) => {
+            console.log(json)
+      });
+    }
+
     function createProject(name, description, id, authusers){
         const authorized = authusers.split(" ");
         const data = { ID: id,
