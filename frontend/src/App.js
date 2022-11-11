@@ -5,7 +5,7 @@ import LoginPage from './pages/loginPage';
 import ProjectsPage from './pages/projectsPage';
 import HardwarePage from './pages/hardwarePage';
 
-const URL = "http://127.0.0.1:80/"
+const URL = "https://sachinnairrtest2.herokuapp.com"
 
 function App() {
   return (
