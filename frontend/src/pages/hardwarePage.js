@@ -42,7 +42,6 @@ class Projects extends React.Component {
 
 class ProjectData extends React.Component {
 
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -51,7 +50,7 @@ class ProjectData extends React.Component {
 			project_list: []
 		};
 
-		//this.state.project_list.push([0, "Project", "User 1", "HWSet1: 0/100", "HWSet2: 0/100"])
+		this.state.project_list.push([0, " ", " ", "HWSet1: 0/100", "HWSet2: 0/100"])
 	}
 
 	renderProject(i, proj, usr, hw1, hw2) {
@@ -94,7 +93,7 @@ class ProjectData extends React.Component {
 			<div>
 				{new_project_list}
 				<div className="emptySpace" />
-				{this.renderNewProject()}
+				{/*{this.renderNewProject()}*/}
 			</div>
 		)
 	}
@@ -104,11 +103,10 @@ class ProjectData extends React.Component {
 		const project_list = this.state.project_list.slice();
 
 		const check_in_val = document.getElementById("check_in:" + project_list[i][1]).value;
-		const current_avail = document.getElementByID(project_list[i][1]);
-		const hwset_val = document.getElementByID("HW");
+		//const current_avail = document.getElementById(project_list[i][3]).value;
+		//const hwset_val = document.getElementById("HW").value;
+		if(check_in_val !== "" && !isNaN(check_in_val)) {
 
-		if(check_in_val !== "" && !isNaN(check_in_val))
-		{
 
 			project_list[i][3] = "HWSet 1: " + check_in_val + "/100";
 
@@ -221,9 +219,9 @@ function Project(props) {
 				</button>
 			</div>
 			{/* Join or Leave */}
-			<div className="column">
-				<button className="joinBtn" type="button">Join</button>
-			</div>
+			{/*<div className="column">*/}
+			{/*	<button className="joinBtn" type="button">Join</button>*/}
+			{/*</div>*/}
 		</div>
 	)
 }
