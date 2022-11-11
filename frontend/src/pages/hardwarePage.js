@@ -42,6 +42,7 @@ class Projects extends React.Component {
 
 class ProjectData extends React.Component {
 
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -103,8 +104,11 @@ class ProjectData extends React.Component {
 		const project_list = this.state.project_list.slice();
 
 		const check_in_val = document.getElementById("check_in:" + project_list[i][1]).value;
-		if(check_in_val !== "" && !isNaN(check_in_val)) {
+		const current_avail = document.getElementByID(project_list[i][1]);
+		const hwset_val = document.getElementByID("HW");
 
+		if(check_in_val !== "" && !isNaN(check_in_val))
+		{
 
 			project_list[i][3] = "HWSet 1: " + check_in_val + "/100";
 
@@ -132,7 +136,7 @@ class ProjectData extends React.Component {
 		if (typeof projectName === 'string' && typeof projectUser === 'string') {
 			if (projectName.trim() !== '' && projectUser.trim() !== '') {
 				const project_list = this.state.project_list.slice();
-				project_list.push([project_list.length, projectName, projectUser, "HWSet 1: 0/100", "HWSet 2: 0/100"]);
+				project_list.push([project_list.length, projectName, projectUser, "HWSet 1: 100/100", "HWSet 2: 100/100"]);
 				this.setState({
 					project_list: project_list,
 				})
