@@ -96,15 +96,23 @@ def login():
 @app.route("/projects", methods=["POST"])
 def createProject():
     json = request.get_json(force=True)
-    authusers = [i for i in json["AuthorizedUsers"]]
-    ditem = {
-        "Name": json["Name"],
-        "ID": json["ID"],
-        "Description": json["Description"],
-        "AuthorizedUsers": authusers
-    }
-    projects.insert_one(ditem)
-    return "Project " + json["Name"] + " Added"
+    projectid = json["ID"]
+    project_found = projects.find_one({"ID": projectid})
+    if project_found is None:
+        #project doesn't exist yet, can be created
+        authusers = [i for i in json["AuthorizedUsers"]]
+        ditem = {
+            "Name": json["Name"],
+            "ID": json["ID"],
+            "Description": json["Description"],
+            "AuthorizedUsers": authusers
+        }
+        projects.insert_one(ditem)
+        message = "Project " + json["Name"] + " Added With ID: " + json["ID"]
+        return message
+    else:
+        message = "Project ID already exists"
+        return message
 
 
 @app.route("/projects/get", methods=["POST"])
