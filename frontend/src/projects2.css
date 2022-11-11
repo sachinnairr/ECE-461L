@@ -22,13 +22,14 @@
 	margin-bottom: 25px;
 	margin-left: 25px;
 	text-align: center;
+    background-color: #3B6ABE;
 }
 
 .projectWrap {
 	display: inline-block;
 	background: #ffffff;
 	height: auto;
-	width: 1800px;
+	width: 1400px;
 	margin: 50px 50px 50px 50px;
 	text-align: center;
 	border-style: solid;
@@ -43,7 +44,7 @@
 	background-color: #ffffff;
 	min-height: 100px;
 	height: auto;
-	width: 1700px;
+	width: 1000px;
 	margin-top: 0px;
 	margin-left: 0px;
 	border-style: solid;
@@ -79,6 +80,7 @@
 	font-weight: bold;
 	font-size: 30px;
 	margin-top: 30px;
+	width: 0px;
 }
 
 .user {
@@ -86,6 +88,7 @@
 	font-weight: oblique;
 	font-size: 30px;
 	margin-top: 30px;
+	width: 0px;
 }
 
 .hwDescription {
