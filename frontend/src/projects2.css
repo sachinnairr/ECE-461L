@@ -22,14 +22,16 @@
 	margin-bottom: 25px;
 	margin-left: 25px;
 	text-align: center;
-    background-color: #3B6ABE;
+	color: #ffffff;
+	align-self: center;
+	align-content: center;
 }
 
 .projectWrap {
 	display: inline-block;
-	background: #ffffff;
 	height: auto;
-	width: 1400px;
+	background-color: #3B6ABE;
+	width: 1000px;
 	margin: 50px 50px 50px 50px;
 	text-align: center;
 	border-style: solid;
@@ -44,7 +46,7 @@
 	background-color: #ffffff;
 	min-height: 100px;
 	height: auto;
-	width: 1000px;
+	width: 900px;
 	margin-top: 0px;
 	margin-left: 0px;
 	border-style: solid;
@@ -64,6 +66,8 @@
 .column {
 	width: 15%;
 	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 	float: left;
 	text-align: center;
 }
