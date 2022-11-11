@@ -18,7 +18,7 @@ export default function LoginPage(props) {
                        password: password,
                        userid: id };
         
-        fetch('https://sachinnairrtest2.herokuapp.com/users/login', {
+        fetch('http://127.0.0.1:80/users/login', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -43,7 +43,7 @@ export default function LoginPage(props) {
                        password: password,
                        userid: id };
         
-        fetch('https://sachinnairrtest2.herokuapp.com/users', {
+        fetch('http://127.0.0.1:80/users', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
