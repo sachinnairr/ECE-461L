@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 export default function LoginPage(props) {
+
     const [existingPassword, setExistingPassword] = React.useState("");
     const [existingId, setExistingId] = React.useState("");
     const [username, setUsername] = React.useState("");
@@ -18,7 +19,7 @@ export default function LoginPage(props) {
                        password: password,
                        userid: id };
         
-        fetch('https://sachinnairrtest2.herokuapp.com/users/login', {
+        fetch('http://127.0.0.1/users/login', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -27,13 +28,16 @@ export default function LoginPage(props) {
                 'Access-Control-Allow-Origin': '*'
             }
         }).then((response) => response.text())
-        .then((text) => {
-        console.log(text)   
+        .then((text) => { 
+        console.log(text)
         if(text === "Correct password"){
-            props.handler(id) 
-        }
+            props.handler(id)
+            console.log(text)
+            console.log("Test flag")
+        }     
         setMessage(text)
       }); 
+         
     }
     function createAccount(username, repassword, password, id){
         if(repassword !== password){
@@ -43,7 +47,7 @@ export default function LoginPage(props) {
                        password: password,
                        userid: id };
         
-        fetch('https://sachinnairrtest2.herokuapp.com/users', {
+        fetch('http://127.0.0.1/users', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -74,6 +78,7 @@ export default function LoginPage(props) {
                 <Stack spacing={2} direction="row">
                 <div><Button variant="contained" onClick={(event) => setToggle1(!toggle1) }>{toggle1 ? "Hide Password" : "Show Password"}</Button></div>
                 <div><Button variant="contained" onClick={(event) => login(existingPassword, existingId)}>Login</Button></div>
+                <div><Button variant="contained" onClick={(event) => props.handler("Not Logged In")}>Logout</Button></div>
                 </Stack>
             </div>
            <div className="field-set">
