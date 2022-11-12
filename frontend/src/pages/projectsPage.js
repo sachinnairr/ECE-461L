@@ -14,7 +14,7 @@ export default function ProjectsPage(props) {
             userId: props.userId
          };
         // getProject(id)
-        fetch('http://127.0.0.1:80/projects/get', {
+        fetch('https://anythingisfine461.herokuapp.com/projects/get', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -34,7 +34,7 @@ export default function ProjectsPage(props) {
         const data = { projectId: id
          };
 
-        fetch('http://127.0.0.1:80/projects/getID', {
+        fetch('https://anythingisfine461.herokuapp.com/projects/getID', {
             method: 'POST',
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -56,7 +56,7 @@ export default function ProjectsPage(props) {
             AuthorizedUsers : authorized
         };
 
-        fetch('http://127.0.0.1:80/projects', {
+        fetch('https://anythingisfine461.herokuapp.com/projects', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
