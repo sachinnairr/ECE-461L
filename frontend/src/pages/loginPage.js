@@ -6,14 +6,20 @@ export default function LoginPage(props) {
 
     const [existingPassword, setExistingPassword] = React.useState("");
     const [existingId, setExistingId] = React.useState("");
-    const [username, setUsername] = React.useState("");
+    const [username, setUsername] = React.useState(props.username);
     const [newPassword, setNewPassword] = React.useState("");
     const [rePassword, setRePassword] = React.useState("")
     const [newId, setNewId] = React.useState("");
     const [message, setMessage] = React.useState("Message Goes Here");
     const [toggle1, setToggle1] = React.useState(false);
     const [toggle2, setToggle2] = React.useState(false);
+    const [flag, setFlag] = React.useState(props.loginFlag);
 
+    function flagSet(flag){
+        setFlag(flag);
+        props.handler2(flag);
+        if(!flag) props.handler("Not Logged In")
+    }
     function login(password, id){
         const data = {
                        password: password,
@@ -32,10 +38,11 @@ export default function LoginPage(props) {
         console.log(text)
         if(text === "Correct password"){
             props.handler(id)
-            console.log(text)
-            console.log("Test flag")
+            flagSet(true); 
+            setUsername(id)
         }     
         setMessage(text)
+       
       }); 
          
     }
@@ -60,11 +67,11 @@ export default function LoginPage(props) {
         console.log(text)
         setMessage(text)
     });
-        }
-       
+     }   
     }
-    return(
-        <div>
+    let ret;
+    if(!flag){
+        ret = <div>
             <div className="field-set">
             <h2 className="field-set-title">Existing User</h2>
                 <div className='field'>
@@ -78,7 +85,6 @@ export default function LoginPage(props) {
                 <Stack spacing={2} direction="row">
                 <div><Button variant="contained" onClick={(event) => setToggle1(!toggle1) }>{toggle1 ? "Hide Password" : "Show Password"}</Button></div>
                 <div><Button variant="contained" onClick={(event) => login(existingPassword, existingId)}>Login</Button></div>
-                <div><Button variant="contained" onClick={(event) => props.handler("Not Logged In")}>Logout</Button></div>
                 </Stack>
             </div>
            <div className="field-set">
@@ -111,6 +117,15 @@ export default function LoginPage(props) {
                 </div>
             </div>
         </div>
-        
+    }else{
+        ret=<div className="field-set">
+        <h2 className="field-set-title">{"Logged in as: " + username}</h2>
+            <div><Button variant="contained" onClick={(event) => flagSet(false)}>Logout</Button></div>
+        </div>
+    }
+    return(
+        <div>
+             {ret}
+        </div>
     );
 }
