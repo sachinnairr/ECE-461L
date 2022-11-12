@@ -1,9 +1,14 @@
 class HWSet():
 
-    def __init__(self, qty = 0):
-        self.__projectID = 0
-        self._capacity = qty
-        self._availability = self._capacity
+    # def __init__(self, qty = 0):
+    #     self.__projectID = 0
+    #     self._capacity = qty
+    #     self._availability = self._capacity
+
+    def __init__(self, capacity, availability):
+        # self.__projectID = 0
+        self._capacity = capacity
+        self._availability = availability
 
     def get_availability(self):
         return self._availability

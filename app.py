@@ -18,8 +18,8 @@ projects = db["Project"]
 hwsets = db["HWSet"]
 
 # create practice HWSets
-hw1 = HWSet(100)
-hw2 = HWSet(50)
+# hw1 = HWSet(100)
+# hw2 = HWSet(50)
 
 
 @app.route('/')
@@ -127,6 +127,17 @@ def getProject():
     else:
         return "Project Does Not Exist"
 
+@app.route("/projects/getID", methods=["POST"])
+def getProjectID():
+    json = request.get_json(force = True)
+    project_found = projects.find_one({"ID": json["projectId"]})
+    data = {
+        "Name": project_found["Name"],
+        "ID": project_found["ID"],
+        "Description": project_found["Description"],
+        "AuthorizedUsers": project_found["AuthorizedUsers"],
+    }
+    return data
 
 @app.route("/projects/addUser", methods=["POST", "GET"])
 def joinProject():
