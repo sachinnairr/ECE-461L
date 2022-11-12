@@ -2,18 +2,54 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 export default function ProjectsPage(props) {
-    const [existingId, setExistingId] = React.useState("");
+    const [existingId, setExistingId] = React.useState(props.pid);
+    const [existingName, setExistingName] = React.useState(props.pname);
+    const [existingDescription, setExistingDescription] = React.useState(props.pdes);
+    const [existingUsers, setExistingUsers] = React.useState(props.pauth);
     const [newName, setNewName] = React.useState("");
     const [newDescription, setNewDescription] = React.useState("");
     const [newId, setNewId] = React.useState("");
-    const [authUsers, setAuthUsers] = React.useState("");
+    const [newAuthUsers, setNewAuthUsers] = React.useState("");
     const [response, setResponse] = React.useState("No Response Yet");
-
+    const [flag, setFlag] = React.useState(props.projFlag);
+    function flagHandler(flag){
+        setFlag(flag)
+        props.handler2(flag)
+        if(!flag) props.handler("","","","")
+    }
+    let projectBox;
+    if(flag){
+        projectBox = 
+                <div className="field-set">
+            <h2 className="field-set-title">{"Current Project"}</h2>
+            <div className='field'>
+                    <div className='field-label'>{"Name"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={existingName}/>
+                </div>
+                <div className='field'>
+                    <div className='field-label'>{"Description"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={existingDescription}/>
+                </div>
+                <div className='field'>
+                    <div className='field-label'>{"Project ID"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={existingId}/>
+                </div>
+                <div className='field'>
+                    <div className='field-label'>{"Authorized Users"}</div>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={existingUsers}/>
+                </div>
+                <div><Button variant="contained" onClick={(event) => flagHandler(false)}>Exit Project</Button></div>
+           
+             </div>   
+        }else{
+            projectBox = <></>
+        }
+    
     function existingProject(id){
         const data = { projectId: id,
             userId: props.userId
          };
-        // getProject(id)
+
         fetch('http://127.0.0.1:80/projects/get', {
             method: 'POST', 
             body: JSON.stringify(data),
@@ -24,7 +60,9 @@ export default function ProjectsPage(props) {
             }
         }).then((response) => response.text())
         .then((text) => {
-        if(text === "Project Accessed") props.handler(id, newName, newDescription, authUsers);
+        if(text === "Project Accessed"){
+            getProject(id)
+        }
         console.log(text)
         setResponse(text)
       });
@@ -44,7 +82,13 @@ export default function ProjectsPage(props) {
             }
         }).then((response) => response.json())
         .then((json) => {
+            flagHandler(true)
             console.log(json)
+            props.handler(json.ID, json.Name, json.Description, json.AuthorizedUsers)
+            setExistingUsers(json.AuthorizedUsers)
+            setExistingId(json.ID)
+            setExistingName(json.Name)
+            setExistingDescription(json.Description)
       });
     }
 
@@ -70,9 +114,15 @@ export default function ProjectsPage(props) {
         setResponse(text)
       });
     }
-    return(
-        <div>
-            <div className="field-set">
+    let existingBox;
+    let createBox;
+    let resp;
+    if(flag){
+        existingBox = <></>
+        createBox = <></>
+        resp = <></>
+    }else{
+        existingBox =  <div className="field-set">
                 <h2 className="field-set-title">{"Use Existing Project"}</h2>
                 <div className='field'>
                     <div className='field-label'>{"Enter Project ID"}</div>
@@ -80,8 +130,7 @@ export default function ProjectsPage(props) {
                 </div>
                 <div><Button variant="contained" onClick={(event) => existingProject(existingId)}>Use Project</Button></div>
             </div>
-
-            <div className="field-set">
+        createBox = <div className="field-set">
                 <h2 className="field-set-title">{"Create Project"}</h2>
                 <div className='field'>
                     <div className='field-label'>{"Name"}</div>
@@ -97,17 +146,23 @@ export default function ProjectsPage(props) {
                 </div>
                 <div className='field'>
                     <div className='field-label'>{"Authorized Users (Separate with a space)"}</div>
-                    <TextField id="outlined-basic" label="" variant="outlined" value={authUsers} onChange={(event) => setAuthUsers(event.target.value)}/>
+                    <TextField id="outlined-basic" label="" variant="outlined" value={newAuthUsers} onChange={(event) => setNewAuthUsers(event.target.value)}/>
                 </div>
-                <div><Button variant="contained" onClick={(event) => createProject(newName, newDescription, newId, authUsers)}>Create Project</Button></div>
+                <div><Button variant="contained" onClick={(event) => createProject(newName, newDescription, newId, newAuthUsers)}>Create Project</Button></div>
             </div>
-
-            <div className="field-set">
-                <h2 className="field-set-title">Server Response</h2>
-                <div className='field'>
-                    <div className='field-label'>{response}</div>
-                </div>
-            </div>
+        resp = <div className="field-set">
+        <h2 className="field-set-title">Server Response</h2>
+        <div className='field'>
+            <div className='field-label'>{response}</div>
+        </div>
+    </div>
+    }
+    return(
+        <div>
+            {existingBox}
+            {projectBox}
+            {createBox}
+            {resp}
         </div>
     );
 }
