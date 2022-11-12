@@ -88,7 +88,7 @@ class Hardware extends React.Component {
 		var data = {
 			Name: "HWSet1"};
 
-		fetch('http://127.0.0.1:80/hwsets/getCapacity', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/getCapacity', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -104,7 +104,7 @@ class Hardware extends React.Component {
 		data = {
 		Name: "HWSet2"};
 
-		fetch('http://127.0.0.1:80/hwsets/getCapacity', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/getCapacity', {
 			method: 'POST', 
 			body: JSON.stringify(data),
 			mode: 'no-cors',
@@ -122,7 +122,7 @@ class Hardware extends React.Component {
 		var data = {
 			Name: "HWSet1"};
 
-		fetch('http://127.0.0.1:80/hwsets/getAvailability', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/getAvailability', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -138,7 +138,7 @@ class Hardware extends React.Component {
 		data = {
 		Name: "HWSet2"};
 
-		fetch('http://127.0.0.1:80/hwsets/getAvailability', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/getAvailability', {
 			method: 'POST', 
 			body: JSON.stringify(data),
 			mode: 'no-cors',
@@ -167,7 +167,7 @@ class Hardware extends React.Component {
 			};
 		}
 
-		fetch('http://127.0.0.1:80/hwsets/setCapacity', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/setCapacity', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -199,7 +199,7 @@ class Hardware extends React.Component {
 			};
 		}
 
-		fetch('http://127.0.0.1:80/hwsets/setAvailability', {
+		fetch('https://anythingisfine461.herokuapp.com/hwsets/setAvailability', {
             method: 'POST', 
             body: JSON.stringify(data),
             mode: 'no-cors',
@@ -233,7 +233,7 @@ class Hardware extends React.Component {
 				};
 			}
 
-			fetch('http://127.0.0.1:80/hwsets/checkIn', {
+			fetch('https://anythingisfine461.herokuapp.com/hwsets/checkIn', {
 				method: 'POST', 
 				body: JSON.stringify(data),
 				mode: 'no-cors',
@@ -267,7 +267,7 @@ class Hardware extends React.Component {
 				};
 			}
 
-			fetch('http://127.0.0.1:80/hwsets/checkOut', {
+			fetch('https://anythingisfine461.herokuapp.com/hwsets/checkOut', {
 				method: 'POST', 
 				body: JSON.stringify(data),
 				mode: 'no-cors',
