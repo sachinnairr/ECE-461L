@@ -166,66 +166,114 @@ def leaveProject():
         return message
 
 # hwsets
-@app.route("/hwsets", methods=["POST"])
-def createHw():
+@app.route("/hwsets/getAvailability", methods=["POST"])
+def getHwAvailability():
     json = request.get_json(force=True)
-
-    ditem = {
-        "Name": json["Name"],
-        "Capacity": json["Capacity"],
-        "Availability": json["Availability"]
-    }
-    hwsets.insert_one(ditem)
-
-
-@app.route("/check_in", methods=["POST", "GET"])
-def checkIn_hardware():
-    json = request.get_json(force=True)
-    qty = json["qty"]
     name = json["Name"]
     hw_found = hwsets.find_one({"Name": name})
-
-    # if hwset exists
-    if hw_found:
-        capacity = hw_found["Capacity"]
+    if hw_found is not None:
+        #hw name exists, then return availability
         availability = hw_found["Availability"]
-        # if qty is allowed to be checked in
-        if qty <= capacity - availability:
-            availability += qty
-            result = hwsets.replace_one({"Name": name}, {"Availability": availability})
-            message = qty + " of " + name + " has been checked in"
-            return message
-        else:
-            message = "Quantity to check in is too large"
-            return message
+        return str(availability)
     else:
-        message = "Hardware name does not exist"
-        return message
+        #if hw name doesn't exist, return error -1
+        availability = -1
+        return str(availability)
 
-
-@app.route("/check_out", methods=["POST", "GET"])
-def checkOut_hardware():
+@app.route("/hwsets/getCapacity", methods=["POST"])
+def getHwCapacity():
     json = request.get_json(force=True)
-    qty = json["qty"]
     name = json["Name"]
     hw_found = hwsets.find_one({"Name": name})
+    if hw_found is not None:
+        #hw name exists, then return capacity
+        capacity = hw_found["Capacity"]
+        return str(capacity)
+    else:
+        #if hw name doesn't exist, return error -1
+        capacity = -1
+        return str(capacity)
 
-    # if hwset exists
+@app.route("/hwsets/setAvailability", methods=["POST"])
+def setHwAvailability():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
+    if hw_found is not None:
+        #hw name exists, then return availability
+        availability = hw_found["Availability"]
+        print(json["Quantity"])
+        return str(json["Quantity"])
+    else:
+        #if hw name doesn't exist, return error -1
+        print(name)
+        availability = -1
+        return str(availability)
+
+@app.route("/hwsets/setCapacity", methods=["POST"])
+def setHwCapacity():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
+    if hw_found is not None:
+        #hw name exists, then return capacity
+        capacity = hw_found["Capacity"]
+        return str(capacity)
+    else:
+        #if hw name doesn't exist, return error -1
+        capacity = -1
+        return str(capacity)
+
+@app.route("/hwsets/checkIn", methods=["POST"])
+def checkIn():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
     if hw_found:
+        #hw name exists, then return capacity
         capacity = hw_found["Capacity"]
         availability = hw_found["Availability"]
-        # if qty is allowed to be checked out
-        if qty <= availability:
-            availability -= qty
-            result = hwsets.replace_one({"Name": name}, {"Availability": availability})
-            message = qty + " of " + name + " has been checked out"
-            return message
-        else:
-            message = "Quantity to check out is too large"
-            return message
+        h = HWSet(capacity, availability)
+        num = int(json["Quantity"])
+        h.check_in(num)
+        availability = h.get_availability()
+
+        query = {"Name": name}
+        newvalues = { "$set": { "Availability":  availability} }
+
+        hwsets.update_one(query, newvalues)
+
+        return str(availability)
     else:
-        message = "Hardware name does not exist"
-        return message
+        #if hw name doesn't exist, return error -1
+        availability = -1
+        return str(availability)
+
+@app.route("/hwsets/checkOut", methods=["POST"])
+def checkOut():
+    json = request.get_json(force=True)
+    name = json["Name"]
+    hw_found = hwsets.find_one({"Name": name})
+    if hw_found:
+        #hw name exists, then return capacity
+        capacity = hw_found["Capacity"]
+        availability = hw_found["Availability"]
+        h = HWSet(capacity, availability)
+        num = int(json["Quantity"])
+        h.check_out(num)
+
+        availability = h.get_availability()
+
+        query = {"Name": name}
+        newvalues = { "$set": { "Availability":  availability} }
+
+        hwsets.update_one(query, newvalues)
+
+        return str(availability)
+    else:
+        #if hw name doesn't exist, return error -1
+        availability = -1
+        return str(availability)
 
 
 if __name__ == "__main__":
